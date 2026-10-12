@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rede de Apoio Seguro - Moçambique</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--roxo:#7a4a9e;--rosa:#ffd6e8;--rosa-claro:#fff0f6;--roxo-claro:#e8d5f2}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Poppins',sans-serif;background:var(--rosa-claro);color:#4a2c5a}
+.capa{width:100%;height:300px;background:linear-gradient(rgba(122,74,158,0.55),rgba(255,214,232,0.6)), url('IMG_9467.jpeg');background-size:cover;background-position:center;display:flex;align-items:center;justify-content:center;flex-direction:column;color:white;text-align:center}
+.capa h1{font-size:26px;text-shadow:0 2px 10px rgba(0,0,0,0.3)}.capa h2{font-size:11px;margin-top:8px;background:white;color:#7a4a9e;padding:7px 16px;border-radius:25px}
+.container{max-width:530px;margin:-20px auto 20px;padding:0 14px}
+.card{background:white;margin:12px 0;padding:18px;border-radius:18px;box-shadow:0 6px 20px rgba(122,74,158,0.1);border:1px solid #ffd6e8}
+.card h3{color:var(--roxo);margin-bottom:8px;font-size:14px}
+.btn{border:none;padding:13px;border-radius:30px;width:100%;font-weight:600;cursor:pointer}
+.btn-roxo{background:linear-gradient(135deg,#b185c8,#7a4a9e);color:white}
+select,input{width:100%;padding:12px;margin:6px 0;border-radius:12px;border:1.5px solid #e8d5f2;font-family:'Poppins';background:#fefcff;font-size:13px}
+.voluntaria-card{border:1.5px solid #e8d5f2;padding:12px;margin:8px 0;border-radius:12px;background:#fefcff;font-size:12px}
+.badge{color:white;padding:3px 9px;border-radius:12px;font-size:10px;font-weight:600}
+.badge-prov{background:var(--roxo)}.badge-pend{background:orange}
+.caso-card{background:linear-gradient(135deg,#f3e5f5,#fff0f6);padding:10px;margin:7px 0;border-radius:10px;border-left:4px solid #7a4a9e;font-size:11px}
+footer{text-align:center;padding:15px;font-size:10px;color:#b185c8}
+</style>
+</head>
+<body>
+<div class="capa"><h1>🌸 Rede de Apoio Seguro</h1><h2>✨ Moçambique inteiro - Estás segura aqui ✨</h2></div>
+<div class="container">
+
+<div class="card">
+<h3>💜 Precisas de apoio? Moçambique inteiro</h3>
+<select id="provVitima">
+<option>Nampula</option><option>Maputo Cidade</option><option>Maputo Província</option><option>Gaza</option><option>Inhambane</option><option>Sofala</option><option>Manica</option><option>Tete</option><option>Zambézia</option><option>Cabo Delgado</option><option>Niassa</option>
+</select>
+<select id="tipoAjuda"><option>Violência Física</option><option>Violência Psicológica</option><option>Risco de Feminicídio</option><option>Depressão / Ansiedade</option><option>Apoio Jurídico</option><option>Abrigo</option><option>Apoio Comunitário</option></select>
+<input type="text" id="bairroVitima" placeholder="Teu bairro/distrito ex: Muhaivire">
+<button class="btn btn-roxo" onclick="pedirAjuda()">💜 VER ANJOS PRÓXIMOS</button>
+</div>
+<div class="card" id="resultado" style="display:none"><div id="listaAjudantes"></div></div>
+
+<div class="card" style="background:linear-gradient(135deg,#e8d5f2,#ffd6e8)">
+<h3>🤝 Quero ser Anjo - Junta-te a nós</h3>
+<p style="font-size:10px;margin-bottom:6px">Teu pedido vai direto para WhatsApp da administradora Charmila 850730250</p>
+<input type="text" id="nomeNovo" placeholder="Teu nome completo">
+<input type="tel" id="telNovo" placeholder="Teu WhatsApp ex: 84xxxxxxx">
+<select id="provNovo">
+<option value="">Tua província</option>
+<option>Maputo Cidade</option><option>Maputo Província</option><option>Gaza</option><option>Inhambane</option><option>Sofala</option><option>Manica</option><option>Tete</option><option>Zambézia</option><option>Nampula</option><option>Cabo Delgado</option><option>Niassa</option>
+</select>
+<input type="text" id="bairroNovo" placeholder="Teu distrito/bairro ex: Muhaivire - Nampula">
+<select id="skillNovo"><option>Apoio Comunitário</option><option>Apoio Jurídico</option><option>Apoio Psicológico</option><option>Abrigo Temporário</option><option>Acompanhamento Hospital/Esquadra</option></select>
+<button class="btn" style="background:white;color:#7a4a9e" onclick="pedirParaSerAnjo()">💜 Enviar meu pedido para 850730250</button>
+</div>
+
+<div class="card">
+<h3>💗 Nossos Anjos Aprovados em Moçambique (<span id="totalAnjos">0</span>)</h3>
+<div id="listaAnjosAprovados"></div>
+</div>
+
+<div class="card" style="background:linear-gradient(135deg,#e8d5f2,#ffd6e8)">
+<h3>📊 Casos que já atendemos - Moçambique</h3>
+<div style="display:flex;gap:8px;text-align:center;margin:10px 0">
+<div style="flex:1;background:white;padding:10px;border-radius:12px"><b style="font-size:18px;color:#7a4a9e">47</b><br><small>mulheres</small></div>
+<div style="flex:1;background:white;padding:10px;border-radius:12px"><b style="font-size:18px;color:#7a4a9e" id="totalAnjos2">2</b><br><small>Anjos</small></div>
+<div style="flex:1;background:white;padding:10px;border-radius:12px"><b style="font-size:18px;color:#7a4a9e">11</b><br><small>províncias</small></div>
+</div>
+<div id="listaCasos">
+<div class="caso-card">✅ <b>Nampula - Muhaivire:</b> Apoio jurídico - Fev/2026</div>
+<div class="caso-card">✅ <b>Maputo:</b> Abrigo seguro - Jan/2026</div>
+<div class="caso-card">✅ <b>Zambézia:</b> Acompanhamento esquadra - Jan/2026</div>
+</div>
+</div>
+
+<div class="card" id="painelAdmin" style="display:none;border:2px dashed #7a4a9e;background:#fcf8ff">
+<h3>🔐 PAINEL ADMINISTRADORA - Charmila 850730250</h3>
+<div id="statsAdmin" style="background:white;padding:8px;border-radius:10px;font-size:11px;margin:8px 0"></div>
+<div id="listaPendentes"></div>
+<div style="display:flex;gap:6px;margin-top:10px">
+<button class="btn btn-roxo" style="flex:1;font-size:11px" onclick="verPendentes()">⏳ Pendentes</button>
+<button class="btn" style="flex:1;background:#e8d5f2;color:#7a4a9e;font-size:11px" onclick="verAprovadosAdmin()">✅ Aprovados</button>
+</div>
+</div>
+
+</div>
+<footer>Rede de Apoio Seguro • Moçambique • Admin: Charmila 850730250 💜<br><small>Link admin: ?admin=850730250</small></footer>
+
+<script>
+// LISTA DE ANJOS - NÚMERO VOLUNTÁRIA 850730250
+let anjosAprovados = JSON.parse(localStorage.getItem('anjosAprovadosFinal')) || [
+{nome:"Charmila Elija - Administradora Geral", prov:"Nampula", bairro:"Muhaivire", tel:"258850730250", skill:"Coordenação e Apoio Jurídico - 850730250"},
+{nome:"Charmila Elija - Voluntária Muhaivire", prov:"Nampula", bairro:"Muhaivire - Nampula", tel:"258850730250", skill:"Apoio Comunitário - 850730250"}
+];
+let pendentes = JSON.parse(localStorage.getItem('anjosPendentesFinal')) || [];
+
+function pedirAjuda(){
+let prov=document.getElementById('provVitima').value;
+let tipo=document.getElementById('tipoAjuda').value;
+let bairro=document.getElementById('bairroVitima').value;
+document.getElementById('resultado').style.display='block';
+let lista = anjosAprovados.filter(a=>a.prov===prov);
+if(lista.length===0) lista=anjosAprovados;
+let html=`<small>Anjos em ${prov} - ${bairro} - ${tipo}</small><br><br>`;
+lista.forEach(a=>{
+html+=`<div class="voluntaria-card"><b>${a.nome}</b> <span class="badge badge-prov">${a.prov}</span><br><small>📍 ${a.bairro} • ${a.skill}</small><br><small>📞 ${a.tel}</small><br><a href="https://wa.me/${a.tel}?text=Olá%20preciso%20de%20${tipo}%20em%20${prov}%20${bairro}" style="background:#7a4a9e;color:white;padding:8px 14px;border-radius:20px;text-decoration:none;display:inline-block;margin-top:6px">💬 Pedir ajuda no WhatsApp 850730250</a></div>`;
+});
+document.getElementById('listaAjudantes').innerHTML=html;
+}
+
+function mostrarAnjosAprovados(){
+let html="";
+anjosAprovados.forEach(a=>{
+html+=`<div class="voluntaria-card"><b>${a.nome}</b> - ${a.prov}<br><small>📍 ${a.bairro} • ${a.skill}</small><br><small>📞 ${a.tel}</small></div>`;
+});
+document.getElementById('listaAnjosAprovados').innerHTML=html;
+document.getElementById('totalAnjos').innerText=anjosAprovados.length;
+document.getElementById('totalAnjos2').innerText=anjosAprovados.length;
+}
+mostrarAnjosAprovados();
+
+function pedirParaSerAnjo(){
+let nome=document.getElementById('nomeNovo').value.trim();
+let tel=document.getElementById('telNovo').value.trim();
+let prov=document.getElementById('provNovo').value;
+let bairro=document.getElementById('bairroNovo').value.trim() || prov;
+let skill=document.getElementById('skillNovo').value;
+if(!nome||!tel||!prov){alert("Preenche nome, WhatsApp e província 💜");return;}
+let telLimpo=tel.replace(/[^0-9]/g,'');
+if(!telLimpo.startsWith('258')) telLimpo='258'+telLimpo;
+let novo={nome,tel:telLimpo,prov,bairro,skill,data:new Date().toLocaleDateString()};
+pendentes.push(novo);
+localStorage.setItem('anjosPendentesFinal',JSON.stringify(pendentes));
+let msg=`*NOVO PEDIDO DE ANJO* 💜%0A%0A👤 Nome: ${nome}%0A📞 Tel: ${telLimpo}%0A📍 Prov: ${prov}%0A🏠 Bairro: ${bairro}%0A💗 Tipo: ${skill}%0A%0APara aprovar: teu-link.tiiny.site/?admin=850730250`;
+window.open(`https://wa.me/258850730250?text=${msg}`, '_blank');
+alert(`Obrigada ${nome}! Pedido enviado para 850730250`);
+document.getElementById('nomeNovo').value="";document.getElementById('telNovo').value="";document.getElementById('bairroNovo').value="";
+}
+
+if(window.location.search.includes('admin=850730250')){
+document.getElementById('painelAdmin').style.display='block';
+verPendentes();
+}
+function atualizarStats(){document.getElementById('statsAdmin').innerHTML=`<b>Resumo:</b> ${anjosAprovados.length} Anjos | ${pendentes.length} pendentes`;}
+function verPendentes(){
+atualizarStats();
+let html=""; if(pendentes.length===0) html="<small style='color:green'>✅ Nenhum pendente</small>";
+pendentes.forEach((p,i)=>{
+html+=`<div class="voluntaria-card" style="border-left:4px solid orange"><b>${p.nome}</b> <span class="badge badge-pend">PENDENTE</span><br><small>📞 ${p.tel} • ${p.prov} - ${p.bairro} • ${p.skill}</small><br><button onclick="aprovarAnjo(${i})" style="background:#7a4a9e;color:white;border:none;padding:9px 14px;border-radius:20px;margin-top:6px">✅ Aprovar</button> <button onclick="rejeitarAnjo(${i})" style="background:#ff6b6b;color:white;border:none;padding:9px 12px;border-radius:20px">❌</button></div>`;
+});
+document.getElementById('listaPendentes').innerHTML=html;
+}
+function verAprovadosAdmin(){
+atualizarStats();
+let html="<b>Anjos na comunidade:</b><br>";
+anjosAprovados.forEach((a,i)=>{html+=`<div style="font-size:11px;margin:5px 0">• ${a.nome} - ${a.prov} - ${a.tel} <span style="color:red" onclick="removerAnjo(${i})">[X]</span></div>`;});
+document.getElementById('listaPendentes').innerHTML=html;
+}
+function aprovarAnjo(i){
+let a=pendentes.splice(i,1)[0];
+anjosAprovados.push(a);
+localStorage.setItem('anjosAprovadosFinal',JSON.stringify(anjosAprovados));
+localStorage.setItem('anjosPendentesFinal',JSON.stringify(pendentes));
+let msgOk=`Parabéns ${a.nome}! 💜 Foste APROVADA como Anjo da Rede Moçambique pela Charmila 850730250. Já apareces na comunidade!`;
+window.open(`https://wa.me/${a.tel}?text=${encodeURIComponent(msgOk)}`,'_blank');
+alert(`${a.nome} aprovada!`);mostrarAnjosAprovados();verPendentes();
+}
+function rejeitarAnjo(i){pendentes.splice(i,1);localStorage.setItem('anjosPendentesFinal',JSON.stringify(pendentes));verPendentes();}
+function removerAnjo(i){anjosAprovados.splice(i,1);localStorage.setItem('anjosAprovadosFinal',JSON.stringify(anjosAprovados));mostrarAnjosAprovados();verAprovadosAdmin();}
+</script>
+</body>
+</html>
